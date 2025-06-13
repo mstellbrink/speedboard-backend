@@ -1,0 +1,15 @@
+# Node modules
+node_modules/
+
+# SQLite-Datenbankdatei (lokale Daten!)
+db/scores.db
+
+# Logdateien
+*.log
+
+# Editor- / Systemdateien
+.DS_STORE
+*.swp
+
+# temporäre Dateien
+*.tmp
