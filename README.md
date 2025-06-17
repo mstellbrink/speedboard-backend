@@ -5,9 +5,11 @@ Speedboard-Terminalanwendung zu speichern und abzufragen.
 
 ---
 ## Features
-- POST /api/highscore/upload - Ergebnis speichern
-- GET /api/highscore/top - Bestenliste abrufen
-- GET /api/status - Serverstatus prüfen
+### HTTP-Endpunkte
+- `POST /api/highscore/upload` - Ergebnis speichern
+- `GET /api/highscore/top` - Bestenliste abrufen
+- `GET /api/status` - Serverstatus prüfen
+### Datenverarbeitung
 - SQLite-Datenbank (lokal)
 - JSON-basiert, plattformunabhängig
 
