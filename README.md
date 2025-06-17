@@ -15,13 +15,51 @@ Speedboard-Terminalanwendung zu speichern und abzufragen.
 
 ---
 ## Setup
-### Lokale installation
+### Lokale installation 
+#### Windows (PowerShell)
+```powershell
+# Node.js
+winget install OpenJS.NodeJS.LTS
+
+# Git
+winget install Git.Git
+
+# PM2 (über npm)
+npm install -g pm2
+```
+#### Ubuntu (bash)
 ```bash
-npm install
-.\start_server.sh
+# Node.js + npm
+sudo apt update
+sudo apt install nodejs npm -y
+
+# Git
+sudo apt install git -y
+
+# PM2 global installieren
+sudo npm install -g pm2
+
+# curl für API-Tests
+sudo apt install curl -y
 ```
 
-### Installation auf einem Server
+#### Projekt starten (plattformunabhängig)
+```bash
+# Projekt klonen
+git clone https://github.com/mstellbrink/speedboard-backend.git
+cd speedboard-backend
+
+# Abhängigkeiten installieren
+npm install
+
+# Server starten
+pm2 start app.js --name speedboard
+
+# API testen
+curl http://localhost:8000/api/status
+```
+
+### Ubuntu-Server
 Für diese Installation wurde ein Ubuntu 24.04.02 Server verwendet. Andere Betriebssysteme wurden **nicht getestet**!
 
 #### Schritt 1: Voraussetzungen auf dem Server
