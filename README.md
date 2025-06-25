@@ -173,11 +173,10 @@ Erwartete Antwort:
     "created_at": 1718724000,
     "language": "de",
     "mode": 2,
-    "username": "Mika",
+    "name": "Mika",
     "score": 450,
     "time": 35
-  },
-  ...
+  }
 ]
 ```
 ---
