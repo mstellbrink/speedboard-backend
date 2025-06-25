@@ -7,17 +7,24 @@ const router = express.Router();
 const db = require('../db/database');
 
 // POST /api/highscore/upload
-// Erwartet ein JSON mit username, mode, zpm, errors
+// Erwartet ein JSON mit: created_at, language, mode, username, score, time
 router.post('/upload', async (req, res) => {
-  const { username, mode, zpm, errors } = req.body;
+  const { created_at, language, mode, username, score, time } = req.body;
 
   // Validierung der Eingabedaten
-  if (!username || !mode || typeof zpm !== 'number' || typeof errors !== 'number') {
-    return res.status(400).json({ error: 'Ungültige Daten' });
+  if (
+    typeof created_at !== 'number' ||
+    typeof language !== 'string' ||
+    typeof mode !== 'number' ||
+    typeof username !== 'string' ||
+    typeof score !== 'number' ||
+    typeof time !== 'number'
+  ) {
+    return res.status(400).json({ error: 'Ungültige oder fehlende Daten' });
   }
 
   try {
-    const result = await db.insertHighscore({ username, mode, zpm, errors });
+    const result = await db.insertHighscore({ created_at, language, mode, username, score, time });
     res.status(201).json({ success: true, id: result.id });
   } catch (err) {
     console.error('Fehler beim Speichern:', err);

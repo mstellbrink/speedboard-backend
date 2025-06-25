@@ -1,9 +1,8 @@
 // db/database.js
 
 const sqlite3 = require('sqlite3').verbose();
-const { rejects } = require('assert');
-const { get } = require('http');
 const path = require('path');
+// Absolute Pfadangabe für scores.db relativ zum Projektverzeichnis
 const dbPath = path.resolve(__dirname, 'scores.db');
 
 // SQLite-Verbindung öffnen (wird automatisch erstellt, wenn Datei nicht existiert)
@@ -20,7 +19,7 @@ db.serialize(() => {
     db.run(`
         CREATE TABLE IF NOT EXISTS highscores (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            timestamp INTEGER DEFAULT CURRENT_TIMESTAMP,
+            created_at INTEGER NOT NULL,
             language TEXT NOT NULL,
             mode INTEGER NOT NULL,
             username TEXT NOT NULL,
@@ -31,13 +30,13 @@ db.serialize(() => {
 });
 
 // Funktion: Highscore in DB einfügen
-function insertHighscore({ id, timestamp, mode, username, score, time }) {
+function insertHighscore({ created_at, language, mode, username, score, time }) {
     return new Promise((resolve, reject) => {
         const query = `
-            INSERT INTO highscores (id, timestamp, language, mode, username, score, time)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO highscores (created_at, language, mode, username, score, time)
+            VALUES (?, ?, ?, ?, ?, ?)
         `;
-        db.run(query, [id, timestamp, mode, username, score, time], function (err) {
+        db.run(query, [created_at, language, mode, username, score, time], function (err) {
             if (err) {
                 reject(err);
             } else {
@@ -51,9 +50,9 @@ function insertHighscore({ id, timestamp, mode, username, score, time }) {
 function getTopHighscores(limit = 10) {
     return new Promise((resolve, reject) => {
         const query = `
-            SELECT id, timestamp, language, mode, username, score, time
+            SELECT created_at, language, mode, username, score, time
             FROM highscores
-            ORDER BY zpm DESC
+            ORDER BY score DESC
             LIMIT ?
         `;
         db.all(query, [limit], (err, rows) => {
