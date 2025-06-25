@@ -20,23 +20,24 @@ db.serialize(() => {
     db.run(`
         CREATE TABLE IF NOT EXISTS highscores (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+            timestamp INTEGER DEFAULT CURRENT_TIMESTAMP,
+            language TEXT NOT NULL,
+            mode INTEGER NOT NULL,
             username TEXT NOT NULL,
-            mode TEXT NOT NULL,
-            zpm REAL NOT NULL,
-            errors INTEGER NOT NULL
+            score INTEGER NOT NULL,
+            time INTEGER NOT NULL
         )
     `);
 });
 
 // Funktion: Highscore in DB einfügen
-function insertHighscore({ username, mode, zpm, errors }) {
+function insertHighscore({ id, timestamp, mode, username, score, time }) {
     return new Promise((resolve, reject) => {
         const query = `
-            INSERT INTO highscores (username, mode, zpm, errors)
+            INSERT INTO highscores (id, timestamp, language, mode, username, score, time)
             VALUES (?, ?, ?, ?)
         `;
-        db.run(query, [username, mode, zpm, errors], function (err) {
+        db.run(query, [id, timestamp, mode, username, score, time], function (err) {
             if (err) {
                 reject(err);
             } else {
@@ -50,7 +51,7 @@ function insertHighscore({ username, mode, zpm, errors }) {
 function getTopHighscores(limit = 10) {
     return new Promise((resolve, reject) => {
         const query = `
-            SELECT id, timestamp, username, mode, zpm, errors
+            SELECT id, timestamp, language, mode, username, score, time
             FROM highscores
             ORDER BY zpm DESC
             LIMIT ?
