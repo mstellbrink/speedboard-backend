@@ -7,16 +7,16 @@ const router = express.Router();
 const db = require('../db/database');
 
 // POST /api/highscore/upload
-// Erwartet ein JSON mit: created_at, language, mode, username, score, time
+// Erwartet ein JSON mit: created_at, language, mode, name, score, time
 router.post('/upload', async (req, res) => {
-  const { created_at, language, mode, username, score, time } = req.body;
+  const { created_at, language, mode, name, score, time } = req.body;
 
   // Validierung der Eingabedaten
   if (
     typeof created_at !== 'number' ||
     typeof language !== 'string' ||
     typeof mode !== 'number' ||
-    typeof username !== 'string' ||
+    typeof name !== 'string' ||
     typeof score !== 'number' ||
     typeof time !== 'number'
   ) {
@@ -24,7 +24,7 @@ router.post('/upload', async (req, res) => {
   }
 
   try {
-    const result = await db.insertHighscore({ created_at, language, mode, username, score, time });
+    const result = await db.insertHighscore({ created_at, language, mode, name, score, time });
     res.status(201).json({ success: true, id: result.id });
   } catch (err) {
     console.error('Fehler beim Speichern:', err);

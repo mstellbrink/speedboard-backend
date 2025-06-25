@@ -22,7 +22,7 @@ db.serialize(() => {
             created_at INTEGER NOT NULL,
             language TEXT NOT NULL,
             mode INTEGER NOT NULL,
-            username TEXT NOT NULL,
+            name TEXT NOT NULL,
             score INTEGER NOT NULL,
             time INTEGER NOT NULL
         )
@@ -30,13 +30,13 @@ db.serialize(() => {
 });
 
 // Funktion: Highscore in DB einfügen
-function insertHighscore({ created_at, language, mode, username, score, time }) {
+function insertHighscore({ created_at, language, mode, name, score, time }) {
     return new Promise((resolve, reject) => {
         const query = `
-            INSERT INTO highscores (created_at, language, mode, username, score, time)
+            INSERT INTO highscores (created_at, language, mode, name, score, time)
             VALUES (?, ?, ?, ?, ?, ?)
         `;
-        db.run(query, [created_at, language, mode, username, score, time], function (err) {
+        db.run(query, [created_at, language, mode, name, score, time], function (err) {
             if (err) {
                 reject(err);
             } else {
@@ -50,7 +50,7 @@ function insertHighscore({ created_at, language, mode, username, score, time }) 
 function getTopHighscores(limit = 10) {
     return new Promise((resolve, reject) => {
         const query = `
-            SELECT created_at, language, mode, username, score, time
+            SELECT created_at, language, mode, name, score, time
             FROM highscores
             ORDER BY score DESC
             LIMIT ?

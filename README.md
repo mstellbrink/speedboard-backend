@@ -13,6 +13,22 @@ Speedboard-Terminalanwendung zu speichern und abzufragen.
 - SQLite-Datenbank (lokal)
 - JSON-basiert, plattformunabhängig
 
+## Datenbankstruktur
+
+Die SQLite-Datenbank enthält eine einzige Tabelle `highscores`, in der alle Spielergebnisse gespeichert werden.
+
+### Tabelle: `highscores`
+
+| Spalte       | Typ     | Beschreibung                     |
+|--------------|----------|----------------------------------|
+| `id`         | INTEGER | Primärschlüssel (autoincrement)  |
+| `created_at` | INTEGER | UNIX-Zeitstempel des Spiels      |
+| `language`   | TEXT    | Sprache des Spiels (`"de"`, `"en"`, …) |
+| `mode`       | INTEGER | Spielmodus (z. B. Zeitlimit = 1) |
+| `name`       | TEXT    | Name des Spielers                |
+| `score`      | INTEGER | Erzielte Punktzahl               |
+| `time`       | INTEGER | Benötigte Zeit in Sekunden       |
+
 ---
 ## Setup
 ### Lokale installation 
