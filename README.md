@@ -130,3 +130,54 @@ Antwort:
 {"status":"OK"}
 ```
 ---
+
+## Server testen
+### Testen der Erreichbarkeit des Servers
+#### Status-Endpunkt testen
+```bash
+curl https://[Server-URL]/api/status
+```
+Erwartete Antwort:
+```json
+{ "status": "OK" }
+```
+
+#### Highscore hochladen (POST)
+JSON-Datei (z.B. `body.json`) erstellen mit z.B. folgendem Inhalt:
+```json
+{
+  "created_at": 1718724000,
+  "language": "de",
+  "mode": 2,
+  "username": "Mika",
+  "score": 450,
+  "time": 35
+}
+```
+
+Dann:
+```bash
+curl -X POST https://[Server-URL]/api/highscore/upload \
+  -H "Content-Type: application/json" \
+  -d @body.json
+```
+
+#### Highscore abrufen
+```bash
+curl https://[Server-URL]/api/highscore/top
+```
+Erwartete Antwort:
+```json
+[
+  {
+    "created_at": 1718724000,
+    "language": "de",
+    "mode": 2,
+    "username": "Mika",
+    "score": 450,
+    "time": 35
+  },
+  ...
+]
+```
+---
