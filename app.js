@@ -1,5 +1,7 @@
 // app.js
 
+require('dotenv').config();
+
 // Express-Framework importieren
 const express = require('express');
 const app = express();

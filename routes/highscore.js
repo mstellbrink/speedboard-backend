@@ -44,4 +44,25 @@ router.get('/top', async (req, res) => {
   }
 });
 
+// POST /api/highscore/reset
+// Löscht alle Einträge aus der Tabelle, nur mit gültigem Passwort
+router.post('/reset', async (req, res) => {
+  const { password } = req.body;
+
+  // Passwort-Schutz (einfach, für dev)
+  if (password !== process.env.RESET_PASSWORD) {
+    return res.status(403).json({ error: 'Zugriff verweigert' });
+  }
+
+  try {
+    const db = require('../db/database');
+    await db.clearHighscores();
+    res.json({ success: true, message: 'Datenbank geleert' });
+  } catch (err) {
+    console.error('Fehler beim Leeren:', err);
+    res.status(500).json({ error: 'Serverfehler beim Leeren' });
+  }
+});
+
+
 module.exports = router;

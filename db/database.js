@@ -65,8 +65,24 @@ function getTopHighscores(limit = 10) {
     });
 }
 
+// Funktion: Datenbank leeren (nur für Testzwecke!)
+function clearHighscores() {
+  return new Promise((resolve, reject) => {
+    const query = `DELETE FROM highscores`;
+    db.run(query, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
+
 // Funktionen exportieren
 module.exports = {
     insertHighscore,
     getTopHighscores,
+    clearHighscores,
 };
