@@ -13,3 +13,6 @@ db/scores.db
 
 # temporäre Dateien
 *.tmp
+
+# Umgebungsvariablen
+.env
