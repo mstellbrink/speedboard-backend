@@ -47,23 +47,23 @@ function insertHighscore({ created_at, language, mode, name, score, time }) {
 }
 
 // Funktion: Top-N-Highscores abrufen (nach ZPM absteigend)
-function getTopHighscores(limit = 10) {
-    return new Promise((resolve, reject) => {
-        const query = `
-            SELECT created_at, language, mode, name, score, time
-            FROM highscores
-            ORDER BY score DESC
-            LIMIT ?
-        `;
-        db.all(query, [limit], (err, rows) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(rows);
-            }
-        });
+function getTopHighscores() {
+  return new Promise((resolve, reject) => {
+    const query = `
+      SELECT created_at, language, mode, name, score, time
+      FROM highscores
+      ORDER BY mode ASC, language ASC, score DESC, time ASC
+    `;
+    db.all(query, [], (err, rows) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(rows);
+      }
     });
+  });
 }
+
 
 // Funktion: Datenbank leeren (nur für Testzwecke!)
 function clearHighscores() {
