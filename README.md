@@ -156,7 +156,7 @@ JSON-Datei (z.B. `body.json`) erstellen mit z.B. folgendem Inhalt:
   "created_at": 1718724000,
   "language": "de",
   "mode": 2,
-  "username": "Mika",
+  "name": "Mika",
   "score": 450,
   "time": 35
 }
