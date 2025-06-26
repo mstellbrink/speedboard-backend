@@ -9,6 +9,7 @@ Speedboard-Terminalanwendung zu speichern und abzufragen.
 - `POST /api/highscore/upload` - Ergebnis speichern
 - `GET /api/highscore/top` - Bestenliste abrufen
 - `GET /api/status` - Serverstatus prüfen
+- `POST /api/highscore/reset` - Datenbank zurücksetzen (nur während des Testprozesses implementiert)
 ### Datenverarbeitung
 - SQLite-Datenbank (lokal)
 - JSON-basiert, plattformunabhängig
@@ -24,10 +25,10 @@ Die SQLite-Datenbank enthält eine einzige Tabelle `highscores`, in der alle Spi
 | `id`         | INTEGER | Primärschlüssel (autoincrement)  |
 | `created_at` | INTEGER | UNIX-Zeitstempel des Spiels      |
 | `language`   | TEXT    | Sprache des Spiels (`"de"`, `"en"`, …) |
-| `mode`       | INTEGER | Spielmodus (z. B. Zeitlimit = 1) |
+| `mode`       | INTEGER | Anzahl der Wörter                |
 | `name`       | TEXT    | Name des Spielers                |
 | `score`      | INTEGER | Erzielte Punktzahl               |
-| `time`       | INTEGER | Benötigte Zeit in Sekunden       |
+| `time`       | INTEGER | Benötigte Zeit in Dezisekunden (0.1 Sekunden)|
 
 ---
 ## Setup
@@ -114,7 +115,7 @@ npm install
 ```
 2. Mit `pm2` starten
 ```bash
-pm2 start app.js --name speedboard
+pm2 start app.js --name speedboard -f
 ```
 Ergebnis:
 ```bash
