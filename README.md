@@ -42,6 +42,9 @@ winget install Git.Git
 
 # PM2 (über npm)
 npm install -g pm2
+
+# dotenv (über npm)
+npm install -g npm
 ```
 #### Ubuntu (bash)
 ```bash
@@ -54,6 +57,9 @@ sudo apt install git -y
 
 # PM2 global installieren
 sudo npm install -g pm2
+
+# dotenv global installieren
+sudo npm install -g dotenv
 
 # curl für API-Tests
 sudo apt install curl -y
@@ -90,9 +96,10 @@ node -v
 npm -v
 ```
 
-2. `pm2` installieren (Prozessmanager für Node.js)
+2. `pm2` und `dotenv` installieren (Prozessmanager für Node.js)
 ```bash
 sudo npm install -g pm2
+sudo npm install -g dotenv
 ```
 Prüfen:
 ```bash
